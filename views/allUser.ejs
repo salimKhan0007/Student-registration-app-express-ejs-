@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- <link rel="icon" href="./admin_pic.png"> -->
+    <link rel="icon" href="https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg" type="image/x-icon">
+    <title>Document</title>
+      <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #beb6b6; /* Light gray background */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333; /* Dark text color */
+        }
+
+        h2 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #007bff; /* Blue header color */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 10px 0;
+            /* New styles for the <hr> element */
+            border-top: 2px solid #007bff; /* Blue color for the line */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+
+        #Student {
+            color: rgb(13, 34, 228);
+            font-weight: bold;
+            font-size: 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333; /* Dark text color for labels */
+        }
+
+        input[type="text"] {
+            width: 48%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #100f10;
+            border-radius: 7px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff; /* Blue button color */
+            color: #fff; /* White text color */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8%;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>All Users</h1>
+
+    <!-- Search Form -->
+    <form action="/search" method="POST">
+        <label for="searchQuery">Search:</label>
+        <input type="text" id="searchQuery" name="searchQuery" placeholder="Enter name, email, username">
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+        <% let serialNumber = 1; %>
+
+        <% if (typeof searchQuery!=='undefined') { %>
+
+            <% if (searchQuery) { %>
+            <h2>Search Results for "<%= searchQuery %>"</h2>
+            <% } %>
+<% } %>
+
+
+        <% allUser.forEach(user => { %>
+            <li id="Student"><strong>Student </strong><%= serialNumber++ %></li>
+
+            <li><strong>Name:</strong> <%= user.fullName %></li>
+            <li><strong>Email:</strong> <%= user.email %></li>
+            <li><strong>Username:</strong> <%= user.username %></li>
+            <li><strong>Date of Birth:</strong> <%= user.dob %></li>
+                <hr>
+        <% }) %>
+    </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Profile Picture</title>
+</head>
+<body>
+    <h1>Upload Profile Picture</h1>
+    <!-- Add an input field for selecting profile picture -->
+    <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="uploadFile(event)" required>
+    <!-- Display the existing profile picture -->
+    <img src="./profilePIC.jpg" alt="Profile Picture" onclick="openFileExplorer()">
+
+
+    <!-- JavaScript to handle file input and form submission -->
+    <script>
+        function openFileExplorer() {
+            document.getElementById('fileInput').click();
+        }
+
+        function uploadFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append('profilePic', file);
+                
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result); // Log server response
+                    alert('Profile picture uploaded successfully!');
+                    // You can optionally update the displayed profile picture here
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error uploading profile picture. Please try again.');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
