@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="styles.css">
+        <link rel="icon" href="https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-png-image_3918418.jpg" type="image/x-icon">
+
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+
+
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #555;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* Profile Page Specific Styles */
+        main h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        main p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Logout Button Style */
+        .logout-btn {
+            background-color: #555;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            background-color: #333;
+        }
+           #profile_pic {
+            width: 103px;
+    height: 103px;
+            background-color: aqua;
+            border-radius: 50%;
+            margin-bottom: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>User Profile</h1>
+        <input type="file" name="image" id="Inputfile" style="display: none;" accept="image/*" onchange="uploadFile(event)" required>
+        <img src="<%=profilePic%>" alt="user_pic" id="profile_pic"  onclick="openFileEXplorer();">
+        
+        
+        <h2>Welcome, <%= decoded.username %></h2>
+
+        <p>Profile information goes here.</p>
+
+        <!-- Logout Button -->
+        <a href="/logout" class="logout-btn">Logout</a>
+    </main>
+    <footer>
+        <p>&copy; 2024 My Website. All rights reserved.</p>
+    </footer>
+    <script>
+        function openFileEXplorer () {
+            document.getElementById("Inputfile").click()
+            
+        }
+         function uploadFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append('profilePic', file);
+                
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result); // Log server response
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error uploading profile picture. Please try again.');
+                });
+            }
+        }
+
+    </script>
+</body>
+</html>
